@@ -101,9 +101,9 @@ Module.register("MMM-CoupleDays", {
     }
     let formattedYears = this.formatDuration(years, this.currentView.label);
     if (years === 1) {
-      formattedYears = `${years} ${this.translate("years")}`;
+      formattedYears = `${years} ${this.translate("year")}`;
     } else {
-      formattedYears = `${years} ${this.translate("years_plural")}`;
+      formattedYears = `${years} ${this.translate("years")}`;
     }
     return formattedYears;
   },
@@ -123,6 +123,19 @@ Module.register("MMM-CoupleDays", {
   },
 
   getDom () {
+
+    if (!this.imageWrapper) {  // Ajoutez cette vérification pour éviter plusieurs insertions
+    const imageWrapper = document.createElement("div");
+    imageWrapper.className = "couple-days-image";
+
+    const image = document.createElement("img");
+    image.src = "modules/MMM-CoupleDays/docs/parents.png";
+    image.alt = "Couple Image";
+    imageWrapper.appendChild(image);
+
+    this.wrapper.prepend(imageWrapper);
+    this.imageWrapper = imageWrapper;  // Stocker une référence pour éviter les doublons
+  }
     return this.wrapper;
   }
 });
